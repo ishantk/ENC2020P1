@@ -30,7 +30,13 @@ while choice == "yes":
 
 print("Your Cart:", cart)
 totalPrice = 0
-for item in cart:
+# for item in cart:
+#     print(item, menu[item])
+#     totalPrice = totalPrice + menu[item]
+
+for i in range(0, len(cart)):
+    item = cart[i]
+    print(item, menu[item])
     totalPrice = totalPrice + menu[item]
 
 print(">> Total Price:", totalPrice)
