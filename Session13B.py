@@ -41,6 +41,8 @@ class LinkedList:
 
             self.current = product
             product.nextProduct = self.head
+            self.head.prevProduct = self.current     # Fixing 1st Product Object's Previous to be the current for iterating in backward directions
+
 
     def iterateForward(self):
 
@@ -53,14 +55,16 @@ class LinkedList:
         temp.showProductDetails()
 
 
-    # # DEBUGGING
-    # def iterateBackward(self):
-    #
-    #     temp = self.current
-    #
-    #     while temp.prevProduct != self.head:
-    #         temp.showProductDetails()
-    #         temp = temp.prevProduct
+    def iterateBackward(self):
+
+        temp = self.current
+
+        while temp.prevProduct != self.current:
+            temp.showProductDetails()
+            temp = temp.prevProduct
+            print(">> temp is:", temp)
+
+        temp.showProductDetails()
 
 
     def getTotalPrice(self):
@@ -102,7 +106,7 @@ shoppingCart.append(Product(701, "3. Samsung LED", 40000, 1))
 shoppingCart.append(Product(401, "4. Samsung M10", 1000, 3))
 
 # shoppingCart.iterateForward()
-# shoppingCart.iterateBackward()
+shoppingCart.iterateBackward()
 
 # result = shoppingCart.getTotalPrice()
 # print(">> TOTAL PRICE:\u20b9", result[0])
