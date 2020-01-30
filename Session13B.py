@@ -16,6 +16,10 @@ class Product:
 
 class LinkedList:
 
+    size = 0
+    items = 0
+    price = 0
+
     def __init__(self):
         print(">> Linked List Created")
         print(self)
@@ -24,6 +28,9 @@ class LinkedList:
 
     def append(self, product):
         print(product)
+        LinkedList.size += 1
+        LinkedList.items += product.quantity
+        LinkedList.price += (product.quantity * product.price)
 
         if self.head == None:
             self.head = product
@@ -97,8 +104,11 @@ shoppingCart.append(Product(401, "4. Samsung M10", 1000, 3))
 # shoppingCart.iterateForward()
 # shoppingCart.iterateBackward()
 
-result = shoppingCart.getTotalPrice()
-print(">> TOTAL PRICE:\u20b9", result[0])
-print(">> TOTAL ITEMS:", result[1])
-print(">> TOTAL PRODUCTS:", result[2])
+# result = shoppingCart.getTotalPrice()
+# print(">> TOTAL PRICE:\u20b9", result[0])
+# print(">> TOTAL ITEMS:", result[1])
+# print(">> TOTAL PRODUCTS:", result[2])
+print(">> SIZE OF LINKED LIST:", LinkedList.size)
+print(">> ITEMS IN LINKED LIST:", LinkedList.items)
+print(">> PRICE IN LINKED LIST:", LinkedList.price)
 
