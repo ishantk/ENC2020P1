@@ -97,10 +97,9 @@ print(cRef.__dict__)
 
 cRef.show()
 
-
-
 # State of Confusion | Ambiguity | Discombobulated
-# Q1: which parent init should be used to construct object of C ?
-# Q2: which parent show should be executed ?
-# Q3: Is Multiple Inheritance Safe to use ?
+# Q1: which parent init should be used to construct object of C ? A
+# Q2: which parent show should be executed ? A
+# Q3: Is Multiple Inheritance Safe to use ? No
 
+# Explore in C++ | VTABLE VPTR # DEEP COPY and SHALLOW COPY

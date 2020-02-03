@@ -28,7 +28,7 @@ class Child(Parent):
         self.name = name
         self.salary = salary
 
-    # Property of Parent Class
+    # Property of Child Class
     def showDetails(self):
         print("{} | {} | {}".format(self.name, self.salary, Child.vehicle))
 
