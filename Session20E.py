@@ -40,3 +40,25 @@ for i in range(1, 6000):
 
 print(">> Banking Finished")
 
+"""
+    Nesting of try except finally :)
+    try:
+        try:
+    
+        except:
+    
+        finally:
+    except:
+        try:
+    
+        except:
+    
+        finally:
+    finally:
+        try:
+    
+        except:
+    
+        finally:
+    
+"""
