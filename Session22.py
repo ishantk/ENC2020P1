@@ -65,12 +65,13 @@ class Fee:
 
     def inputFeeDetails(self):
         self.phone = input("Enter Customer Phone: ")
-        self.month = input("Enter Month: ")
-        self.year = input("Enter Year: ")
+        self.month = int(input("Enter Month: "))
+        self.year = int(input("Enter Year: "))
 
         # Amount must be fetched automatically
         file = open("gc-customers.csv", "r")
         lines = file.readlines()
+
         # Implement Linear Search on List
         for line in lines:
             data = line.split(",")
@@ -78,7 +79,31 @@ class Fee:
                 size = data[len(data)-1].strip()
                 self.amount = feeStructure[size]
                 break
-        print(">> Fee to be Paid: \u20b9", self.amount)
+
+        lastMonth = self.getLastFeePaidMonth()
+        difference = self.month - lastMonth
+
+        if difference == 1:
+            print(">> Fee to be Paid on {} month {} year : \u20b9{}".format(self.month, self.year, self.amount))
+        else:
+            print(">> Fee Not Paid for {} months".format(difference))
+
+
+    # Fetching Fee Paid in the Last Month
+    def getLastFeePaidMonth(self):
+        file = open("gc-fees.csv", "r")
+        lines = file.readlines()
+        lastFeeLine = None
+
+        # Time Complexity - O(n)
+        for line in lines:
+            data = line.split(",")
+            if data[0] == self.phone:
+                lastFeeLine = line
+
+        data = lastFeeLine.split(",")
+        month = int(data[1])
+        return month
 
     def showFee(self):
         print("{} | {} | {} | {}".format(self.phone, self.month, self.year, self.amount))
@@ -95,7 +120,7 @@ def main():
     print("1. Add Customer")
     print("2. Charge Garbage Fee")
 
-    choice = int(input("Enter Your Choice"))
+    choice = int(input("Enter Your Choice: "))
 
     if choice == 1:
 
