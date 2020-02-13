@@ -37,10 +37,11 @@ print(">> Firebase Configured and Initialized :)")
 # MODEL
 class Customer:
 
-    def __init__(self):
-        self.name = input("Enter Customer Name: ")
-        self.phone = input("Enter Customer Phone: ")
-        self.email = input("Enter Customers Email: ")
+    def __init__(self, mode=0):
+        if mode == 1:
+            self.name = input("Enter Customer Name: ")
+            self.phone = input("Enter Customer Phone: ")
+            self.email = input("Enter Customers Email: ")
 
     def showCustomerDetails(self):
         print("{} | {} | {}".format(self.name, self.phone, self.email))
@@ -49,16 +50,49 @@ class Customer:
 
 # APPLICATION :)
 def main():
+
+    # db is reference to Firestore Database
+    db = firestore.client()
+
+    """
     customer = Customer()
     customer.showCustomerDetails()
 
     customerData = customer.__dict__
     print(customerData, type(customerData))
 
-    # db is reference to Firestore Database
-    db = firestore.client()
+    # set -> insert and update
     db.collection("customers").document(customer.email).set(customerData)
     print(">> CUSTOMER SAVED")
+    """
+
+    """
+    # get to get single document or multiple documents in a collection
+    docRef = db.collection("customers").document("dave@example.com").get()
+    docDict = docRef.to_dict()
+    print(docDict)
+    cRef = Customer()
+    cRef.name = docDict["name"]
+    cRef.phone = docDict["phone"]
+    cRef.email = docDict["email"]
+
+    cRef.showCustomerDetails()
+    """
+
+    """
+    # delete tp delete a document
+    db.collection("customers").document("dave@example.com").delete()
+    print("dave@example.com deleted")
+    """
+
+    # docs = db.collection('customers').get()
+    docs = db.collection('customers').stream()
+    for doc in docs:
+        print(u'{} => {}'.format(doc.id, doc.to_dict()))
+
 
 if __name__ == "__main__":
     main()
+
+
+# PS: Implement Session18 with Google FirebaseFirestore DataBase
