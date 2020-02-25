@@ -39,9 +39,13 @@ print("--Delete Data in DataFrame--")
 # drop -> either axis=0 (ROW) or axis=1(Column)
 # This operation is IMMUTABLE i.e. will generate a new DataDrame :)
 print("--drop--")
-frame3 = frame1.drop(0, axis=0)
-print(frame1) # No Change    :(
-print(frame3) # With Changes :)
+# frame3 = frame1.drop(0, axis=0)
+# print(frame1) # No Change    :(
+# print(frame3) # With Changes :)
+
+# Changes will be done in the same DataFrame
+frame1.drop(0, axis=0, inplace=True)
+print(frame1)
 
 # Deleting a Value in DataFrame
 
