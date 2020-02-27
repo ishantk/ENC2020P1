@@ -25,7 +25,7 @@ for tag in teamDataTags:
 
     print(tag.text.strip())
     try:
-        iplTeams2019Data[j].append(float(tag.text.strip()))
+        iplTeams2019Data[j].append(int(tag.text.strip()))
     except Exception as e:
         iplTeams2019Data[j].append(tag.text.strip())
 
@@ -38,3 +38,35 @@ for tag in teamDataTags:
 
 print(iplTeams2019Names)
 print(iplTeams2019Data)
+
+class Team:
+    def __init__(self, teamName, matches, won, lost, tied, abandoned, points, netRunRate, forScore, againstScore):
+        self.teamName = teamName
+        self.matches = matches
+        self.won = won
+        self.lost = lost
+        self.tied = tied
+        self.abandoned = abandoned
+        self.points = points
+        self.netRunRate = netRunRate
+        self.forScore = forScore
+        self.againstScore = againstScore
+
+    def __str__(self):
+        return "{},{},{},{},{},{},{},{},{},{}\n".format(self.teamName, self.matches, self.won, self.lost, self.tied, self.abandoned, self.points, self.netRunRate, self.forScore, self.againstScore)
+
+teams = []
+for i in range(0, len(iplTeams2019Names)):
+    team = Team(iplTeams2019Names[i], iplTeams2019Data[i][0], iplTeams2019Data[i][1], iplTeams2019Data[i][2], iplTeams2019Data[i][3], iplTeams2019Data[i][4], iplTeams2019Data[i][5], iplTeams2019Data[i][6], iplTeams2019Data[i][7], iplTeams2019Data[i][8])
+    teams.append(team)
+
+
+file = open("IPL-TEAMS-2019.csv", "a")
+
+for team in teams:
+    print(team)
+    data = str(team)
+    file.write(data)
+
+
+print("--CSV FILE GENERATED--")
