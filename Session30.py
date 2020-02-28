@@ -1,8 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 
-
-url = "https://www.espncricinfo.com/table/series/8048/season/2019/ipl"
+year = 2019
+url = "https://www.espncricinfo.com/table/series/8048/season/{}/ipl".format(year)
 response = requests.get(url)
 
 soup = BeautifulSoup(response.text, "html.parser")
@@ -53,7 +53,7 @@ class Team:
         self.againstScore = againstScore
 
     def __str__(self):
-        return "{},{},{},{},{},{},{},{},{},{}\n".format(self.teamName, self.matches, self.won, self.lost, self.tied, self.abandoned, self.points, self.netRunRate, self.forScore, self.againstScore)
+        return "{},{},{},{},{},{},{},{},{},{},{}\n".format(year,self.teamName, self.matches, self.won, self.lost, self.tied, self.abandoned, self.points, self.netRunRate, self.forScore, self.againstScore)
 
 teams = []
 for i in range(0, len(iplTeams2019Names)):
