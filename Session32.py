@@ -1,3 +1,43 @@
+# Open Hashing with List
+# https://www.cs.usfca.edu/~galles/visualization/OpenHash.html
+
+class HashTable:
+
+    def __init__(self, capacity=10):
+        self.capacity = capacity
+        self.size = 0
+        self.table = []
+        for i in range(capacity):
+            self.table.append([])
+
+    def hashCode(self, data):
+        idx = id(data) % self.capacity
+        return idx
+
+    def put(self, data):
+        idx = self.hashCode(data)
+        self.table[idx].append(data)
+        print(">> Data {} Inserted at Index {}".format(data, idx))
+        self.size += 1
+
+    def find(self, data):
+       pass
+
+    def delete(self, data):
+        pass
+
+    def iterate(self):
+        for i in range(self.capacity):
+            if len(self.table[i]) != 0:
+                print(">> Data in BUCKET", i)
+
+                for data in self.table[i]:
+                    print(data)
+
+                print("~~~~~~~~~~~~~~")
+
+"""
+# HashTable with Objects
 class HashTable:
 
     def __init__(self, capacity=10):
@@ -40,18 +80,14 @@ class HashTable:
             print("Data Not Found", data)
 
     def iterate(self):
-        """
-        for i in range(self.capacity):
-            if self.table[i] != None:
-                print(self.table[i])
-        """
-
         for data in self.table:
             if data != None:
                 print(data)
 
+"""
 
 """
+# Basic HashTable
 class HashTable:
 
     def __init__(self, capacity=10):

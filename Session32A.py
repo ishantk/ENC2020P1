@@ -19,7 +19,7 @@ s5 = Student(715, "Joe", 21)
 
 # print(id(s1))
 
-hTable = HashTable()
+hTable = HashTable(13)
 hTable.put(s1)
 hTable.put(s2)
 hTable.put(s3)
