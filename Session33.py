@@ -19,10 +19,10 @@ class HashTable:
         for i in range(capacity):
             self.table.append(None)
 
-        print(">> HashTable Object Created with Capacity:",capacity)
+        print(">> HashTable Object Created with Capacity:", capacity)
 
     def hashCode(self, word):
-        index = int(hashlib.sha256(word.encode("utf-8")).hexdigest(), 16) % self.capacity
+        index = int(hashlib.sha512(word.encode("utf-8")).hexdigest(), 16) % self.capacity
         print("## Index for", word, "is:", index)
         return index
 
@@ -33,27 +33,12 @@ class HashTable:
         if self.table[idx] == None:
             self.size += 1
             self.table[idx] = data
+            print("^^ Data {} Inserted at Index {}".format(data, idx))
         else:
             word = self.table[idx]
             word.frequency += 1
+            print("** Collision for Data {} Inserted at Index {}".format(data, idx))
 
-        print(">> Data {} Inserted at Index {}".format(data, idx))
-
-    def find(self, data):
-        idx = self.hashCode(data)
-        if self.table[idx] == data:
-            return idx
-        else:
-            return -1
-
-    def delete(self, data):
-        idx = self.hashCode(data)
-        if self.table[idx] == data:
-            self.table[idx] = None
-            self.size -= 1
-            print("Data Deleted", data)
-        else:
-            print("Data Not Found", data)
 
     def iterate(self):
 
@@ -63,10 +48,11 @@ class HashTable:
 
 
 def main():
+
     """
-    word = "institution"
-    hashCode = int(hashlib.sha256(word.encode("utf-8")).hexdigest(), 16) % 100
-    print(hashCode)
+        word = "institution"
+        hashCode = int(hashlib.sha256(word.encode("utf-8")).hexdigest(), 16) % 100
+        print(hashCode)
     """
 
     review1 = "Really good institution teachers are very helpful and caring also environment of this college is very attractive Proud to be a part of this college"
@@ -75,10 +61,8 @@ def main():
     review4 = "Nice place a big also it provides you good education"
     review5 = "Great institution with opportunities for those who want it"
 
-    # revires = [review1, review2, review3, review4, review5]
+    # reviews = [review1, review2, review3, review4, review5]
 
-    word1 = "institution"
-    frequency1 = 0
     # We need to find frequency of occurrence of word institution in above 5 reviews
 
     # 1. Put the data in an effective data structures
@@ -94,10 +78,6 @@ def main():
     words4 = review4.split(" ")
     words5 = review5.split(" ")
 
-    capacity = len(words1) + len(words2) + len(words3) + len(words4) + len(words5)
-
-    hTable = HashTable(capacity)
-
     allWords = []
 
     allWords.extend(words1)
@@ -109,10 +89,21 @@ def main():
     print(allWords)
     print(len(allWords))
 
+    capacity = len(allWords)
+    hTable = HashTable(capacity*10)
+
     for word in allWords:
         hTable.put(Word(word))
 
     hTable.iterate()
+
+    print("~~~~~~~~~~~~~~~~~~")
+
+    word1 = "institution"
+    idx = hTable.hashCode(word1)
+    print(hTable.table[idx])
+
+    print("~~~~~~~~~~~~~~~~~~")
 
 
 
