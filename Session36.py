@@ -72,11 +72,38 @@ def answer3():
 
     print("~~~~~~~~~~")
 
+    print("Group the Data Country Wise for Year 2011: ")
+    salesYear2011DataCountryWise = salesYear2011Data.groupby('Country').sum()['Amount']
+    print(salesYear2011DataCountryWise)
+
+    plt.pie(salesYear2011DataCountryWise.values, labels=salesYear2011DataCountryWise.index, autopct='%1.1f%%')
+    plt.show()
+
+"""
+4. Plot Scatter Plot for the invoice amounts and see the concentration of amount. 
+In which range most of the invoice amounts are concentrated 
+"""
+def answer4():
+    print("Data for Year 2011: ")
+    salesYear2011Data = table[table['Year'] == 2011]
+    print(salesYear2011Data)
+
+    print("~~~~~~~~~~")
+
+    print("Group the Data Country Wise for Year 2011: ")
+    salesYear2011DataInvoiceNoWise = salesYear2011Data.groupby('InvoiceNo').sum()['Amount']
+    print(salesYear2011DataInvoiceNoWise)
+
+    plt.scatter(salesYear2011DataInvoiceNoWise.values, salesYear2011DataInvoiceNoWise.values)
+    plt.grid(True)
+    plt.show()
+
 
 def main():
-    answer1()
+    # answer1()
     # answer2()
-
+    # answer3()
+    answer4()
 
 if __name__ == '__main__':
     main()
