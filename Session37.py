@@ -105,6 +105,7 @@ class LinearRegressionModel:
         self.b0 = 0
         self.b1 = 0
         self.mse = 0
+        self.fitForPrediction = False
 
     """
     def fit(self, X, Y):
@@ -137,21 +138,50 @@ class LinearRegressionModel:
         self.Y = Y
 
         self.b1 = np.sum((self.X - np.mean(self.X)) * (self.Y - np.mean(self.Y))) / np.sum(np.square(self.X - np.mean(self.X)))
-        print(">> b1 is:", self.b1)
+        self.b0 = np.mean(self.Y) - (self.b1 * np.mean(self.X))
 
-    def predict(self, X):
-        Y = self.b0 + self.b1 * X
+        # yRef = lambda x: self.b0 + self.b1 * x
+        # Y1 = self.predict(self.X)
+        # print(Y1)
+
+        self.mse = np.sum(np.square(self.predictYDash(self.X)-np.mean(self.Y))) / np.sum(np.square(self.Y-np.mean(self.Y)))
+
+        print(">> b1 is:", self.b1)
+        print(">> b0 is:", self.b0)
+        print(">> Equation of Line: Y = {} + {}X".format(self.b0, self.b1))
+        print(">> MSE:", self.mse)
+
+        if self.mse >=0 and self.mse <=1:
+            self.fitForPrediction = True
+            print(">> Equation of Line: Y = {} + {}X is FIT for Predictions".format(self.b0, self.b1))
+        else:
+            print(">> Equation of Line: Y = {} + {}X is NOT FIT for Predictions".format(self.b0, self.b1))
+
+    def predictYDash(self, X):
+        Y = self.b0 + np.multiply(self.b1, X)
         return Y
 
+    def predict(self, X):
+        if self.fitForPrediction == True:
+            Y = self.b0 + np.multiply(self.b1, X)
+            return Y
+        else:
+            return -1
 
-X = [1, 2, 3, 4, 5]
-Y = [2, 4, 5, 4, 5]
 
-# Model Creation
-model = LinearRegressionModel()
 
-# Model Training
-model.fit(X, Y)
+def main():
+    X = [1, 2, 3, 4, 5]
+    Y = [2, 4, 5, 4, 5]
 
-predictedOutput = model.predict(6)
-print(">> Predicted Output for 6 is:", predictedOutput)
+    # Model Creation
+    model = LinearRegressionModel()
+
+    # Model Training
+    model.fit(X, Y)
+
+    predictedOutput = model.predict(6)
+    print(">> Predicted Output for 6 is:", predictedOutput)
+
+if __name__ == '__main__':
+    main()
