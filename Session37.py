@@ -89,6 +89,8 @@
 
 """
 
+import numpy as np
+
 class LinearRegressionModel:
 
     """
@@ -102,17 +104,44 @@ class LinearRegressionModel:
     def __init__(self):
         self.b0 = 0
         self.b1 = 0
+        self.mse = 0
+
+    """
+    def fit(self, X, Y):
+        self.X = X
+        self.Y = Y
+
+        meanX = np.mean(self.X)
+        meanY = np.mean(self.Y)
+
+        print("MeanX:{} MeanY:{}".format(meanX, meanY))
+
+        valueX = self.X - meanX
+        valueY = self.Y - meanY
+
+        print(valueX)
+        print(valueY)
+
+        squareX = np.square(valueX)
+        squareY = np.square(valueY)
+
+        print(squareX)
+        print(squareY)
+
+        self.b1 = np.sum(valueX*valueY) / np.sum(squareX)
+        print(">> b1 is:", self.b1)
+    """
 
     def fit(self, X, Y):
         self.X = X
         self.Y = Y
 
+        self.b1 = np.sum((self.X - np.mean(self.X)) * (self.Y - np.mean(self.Y))) / np.sum(np.square(self.X - np.mean(self.X)))
+        print(">> b1 is:", self.b1)
 
     def predict(self, X):
         Y = self.b0 + self.b1 * X
         return Y
-
-
 
 
 X = [1, 2, 3, 4, 5]
