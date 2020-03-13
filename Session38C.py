@@ -11,5 +11,6 @@ print(image)
 print(rotatedImage1)
 
 cv2.imshow("AnyTitleForImage", rotatedImage2)
-cv2.waitKey(5000)
+cv2.waitKey(0) # Take any keyboard input and then quit :)
+# cv2.waitKey(5000)
 cv2.destroyAllWindows()
