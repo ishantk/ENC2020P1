@@ -35,4 +35,31 @@ def computeEntropyDataSet():
     # E(S) = -P(Yes) * log_base2(P(Yes)) - P(No) * log_base2(P(No))
     # E(S) = -9/14 * log_base2(9/14) - 5/14 * log_base2(5/14)
 
+
+    # print(len(dataSet['play']))
+    # print(len(dataSet[dataSet['play'] == 'yes']))
+    # print(len(dataSet[dataSet['play'] == 'no']))
+
+    """
+    total = len(dataSet['play'])
+    numOfYes = len(dataSet[dataSet['play'] == 'yes'])
+    numOfNo = len(dataSet[dataSet['play'] == 'no'])
+
+    probabilityYes = numOfYes / total
+    probabilityNo = numOfNo / total
+
+    print(probabilityYes)
+    print(probabilityNo)
+
+    entropy = -(probabilityYes*np.log2(probabilityYes)) - (probabilityNo*np.log2(probabilityNo))
+    print(entropy)
+    return entropy
+    """
+
+    return  -( (len(dataSet[dataSet['play'] == 'yes']) / len(dataSet['play']) ) * np.log2( (len(dataSet[dataSet['play'] == 'yes']) / len(dataSet['play']) ) ))  - ( (len(dataSet[dataSet['play'] == 'no']) / len(dataSet['play']) ) * np.log2( (len(dataSet[dataSet['play'] == 'no']) / len(dataSet['play']) ) ))
+
+
+def informationGainInOutlook():
     pass
+
+print("Entropy Of Data Set:", computeEntropyDataSet())
