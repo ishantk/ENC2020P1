@@ -49,3 +49,6 @@ graph = graphviz.Source(data)
 graph.render("IRIS DATA SET DECISION TREE")
 graph.view()
 
+# Train the DecisionTreeClassifier with DataSet as in Session40
+# Try looking for APIs to convert the string dataset into numbered dataset
+
