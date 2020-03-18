@@ -49,14 +49,14 @@ print("======================================")
 print("Frequency Table")
 
 overcastDataSet = dataSet[dataSet['outlook'] == 'overcast']
-print(overcastDataSet)
+# print(overcastDataSet)
 
 print("Length Of Overcast DataSet:", len(overcastDataSet))
 print("yes_overcast", len(overcastDataSet[overcastDataSet['play'] == 'yes']))
 print("no_overcast", len(overcastDataSet[overcastDataSet['play'] == 'no']))
 
 rainyDataSet = dataSet[dataSet['outlook'] == 'rainy']
-print(rainyDataSet)
+# print(rainyDataSet)
 
 print("Length Of Rainy DataSet:", len(rainyDataSet))
 print("yes_rainy", len(rainyDataSet[rainyDataSet['play'] == 'yes']))
@@ -64,7 +64,7 @@ print("no_rainy", len(rainyDataSet[rainyDataSet['play'] == 'no']))
 
 
 sunnyDataSet = dataSet[dataSet['outlook'] == 'sunny']
-print(sunnyDataSet)
+# print(sunnyDataSet)
 
 print("Length Of Sunny DataSet:", len(sunnyDataSet))
 print("yes_sunny", len(sunnyDataSet[sunnyDataSet['play'] == 'yes']))
@@ -72,8 +72,27 @@ print("no_sunny", len(sunnyDataSet[sunnyDataSet['play'] == 'no']))
 
 print("======================================")
 
+print()
 
 print("======================================")
 print("Likelihood Table")
 
+probabilityOvercast = ( len(overcastDataSet[overcastDataSet['play'] == 'yes']) + len(overcastDataSet[overcastDataSet['play'] == 'no']) ) / len(dataSet)
+probabilityRainy = ( len(rainyDataSet[rainyDataSet['play'] == 'yes']) + len(rainyDataSet[rainyDataSet['play'] == 'no']) ) / len(dataSet)
+probabilitySunny = ( len(sunnyDataSet[sunnyDataSet['play'] == 'yes']) + len(sunnyDataSet[sunnyDataSet['play'] == 'no']) ) / len(dataSet)
 
+probabilityAllYes = ( len(overcastDataSet[overcastDataSet['play'] == 'yes']) + len(rainyDataSet[rainyDataSet['play'] == 'yes']) + len(sunnyDataSet[sunnyDataSet['play'] == 'yes'])) / len(dataSet)
+probabilityAllNo = ( len(overcastDataSet[overcastDataSet['play'] == 'no']) + len(rainyDataSet[rainyDataSet['play'] == 'no']) + len(sunnyDataSet[sunnyDataSet['play'] == 'no'])) / len(dataSet)
+
+print("probabilityOvercast:", probabilityOvercast)
+print("probabilityRainy:", probabilityRainy)
+print("probabilitySunny:", probabilitySunny)
+
+print("probabilityAllYes:", probabilityAllYes)
+print("probabilityAllNo:", probabilityAllNo)
+
+
+
+print("======================================")
+
+# probabilityYesSunny = ?
