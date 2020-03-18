@@ -1,5 +1,5 @@
 import pandas as pd
-import numpy as np
+from sklearn.tree import DecisionTreeClassifier
 
 dataSet = pd.DataFrame()
 
@@ -35,8 +35,7 @@ print(dataSet)
 # ONE-HOT -> Technique In ML where categorical data is represented as 1 or 0
 
 """
-
-     outlook temperature humidity  windy play
+       outlook temperature humidity windy  play
 0      sunny         hot     high  false   no
 1      sunny         hot     high   true   no
 2   overcast         hot     high  false  yes
@@ -61,5 +60,15 @@ outlook_sunny   outlook_overcast    outlook_rainy
 one_hot_data = pd.get_dummies(dataSet[ ['outlook', 'temperature',
                               'humidity', 'windy'] ])
 print(one_hot_data)
+# print(one_hot_data['outlook_sunny'])
+
+# Creating the Model:
+model = DecisionTreeClassifier()
+
+# Training the Model:
+model.fit(one_hot_data, dataSet['play'])
+
+# Metrics for DecisionTreeClassifier
+# Explore the APIs and share the same here :)
 
 
