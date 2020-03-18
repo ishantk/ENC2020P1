@@ -1,5 +1,7 @@
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn import metrics
 
 dataSet = pd.DataFrame()
 
@@ -52,7 +54,8 @@ print(dataSet)
 13     rainy        mild     high   true   no
 
 
-outlook_sunny   outlook_overcast    outlook_rainy
+outlook_overcast    outlook_rainy      outlook_sunny
+0                   0                  1   
 
 
 """
@@ -62,13 +65,24 @@ one_hot_data = pd.get_dummies(dataSet[ ['outlook', 'temperature',
 print(one_hot_data)
 # print(one_hot_data['outlook_sunny'])
 
-# Creating the Model:
+x_train, x_test, y_train, y_test = train_test_split(one_hot_data, dataSet['play'], test_size=0.2, random_state=1)
+
+# Model Creation
 model = DecisionTreeClassifier()
+model.fit(x_train, y_train)
 
-# Training the Model:
-model.fit(one_hot_data, dataSet['play'])
+y_pred = model.predict(x_test)
+print(y_pred)
 
-# Metrics for DecisionTreeClassifier
-# Explore the APIs and share the same here :)
+# Percentage Score :) How Accurate the Model IS ?
+print(">> Accuracy Score:", metrics.accuracy_score(y_test, y_pred))
+
+# Test the Model Manually with these inputs and tell me the class
+# outlook = sunny, temperature = hot, humidity = normal, windy = false
+# Predict can we play outside or not ?
+
+inputData = [0, 0, 1, 0, 1, 0, 0, 1, 1, 0]
+predictedClass = model.predict([inputData])
+print(">> Predicted Class for", inputData, "is:", predictedClass)
 
 
