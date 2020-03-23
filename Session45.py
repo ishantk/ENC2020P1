@@ -81,7 +81,12 @@ print(predictedProfit)  # REAL VALUE: 182901.99 | PREDICTED VALUE: 173441.30
 # OLS, WLS, GLS | Statistical Mathematics :)
 
 # Stats Model, adds up constants to our inputs to work
+
+print(X)
+print("~~~~~~~~~~~~~~~~~~")
 X = sm.add_constant(X)
+print("~~~~~~~~~~~~~~~~~~")
+print(X)
 
 smModel = sm.OLS(Y, X).fit()        # Remember : input (Y), output(X) in API
 predctions = smModel.predict(X)
