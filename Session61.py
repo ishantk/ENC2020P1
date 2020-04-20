@@ -111,7 +111,9 @@ class ANN:
 
     # Creates A Layer with Nodes :)
     def createLayer(self, input, output):
+
         random.seed(1)
+
         layer = []
 
         for i in range(output):
@@ -123,6 +125,7 @@ class ANN:
                    }
             layer.append(node)
 
+        print(">> [ANN] Layer:", layer)
         print(">> [ANN] CreatedLayer between", input, "and", output)
         return layer
 
@@ -130,7 +133,7 @@ class ANN:
     def fit(self, X, Y, epochs):
 
         # Iterate in n number of epochs to train the model
-        for epoch in epochs:
+        for i in range(epochs):
             for (x, y) in zip(X, Y):
                 # 1. Feed Forward the Data
                 self.feedForward(x)
@@ -142,8 +145,7 @@ class ANN:
 
     # Give us Prediction for a particular Input
     def predict(self, X):
-        predictions = [self.feedForward((x)) for x in X]
-        yPred = np.array(np.argmax(predictions), dtype=np.int)
+        yPred = np.array([np.argmax(self.feedForward(x)) for x in X], dtype=np.int)
         return yPred
 
     # How Model shall work by exchanging data in between the layers
@@ -164,11 +166,51 @@ class ANN:
         return x
 
     # Please study the blogs which i shared over the group :)
+    # sigmoid and sigmoid derivative
+    # Evaluate node[delta] -> sig' = fxn(sig)
     def feedBackward(self, y_one_hot):
-        pass
 
+        numOfLayers = len(self.network)
+
+        # Iterating Backward
+        for i in reversed((range(numOfLayers))):
+            # Last Layer
+            if i == numOfLayers-1:
+                # Iterating in the Last Layer for all the nodes
+                for j, node in enumerate(self.network[i]):
+                    #       measured - actual
+                    error = node['output'] - y_one_hot[j]
+                    node['delta'] = error * self.sigmoidActivationDerivation(node['output'])
+            # Remaining Previous Layers: Propagate the error backward in the network and compute the delta for the nodes
+            else:
+                for j, node in enumerate(self.network[i]):
+                    #       measured - actual
+                    # error = node['output'] - y_one_hot[j]
+                    error = sum([ n['weights'][j] * n['delta'] for n in self.network[i+1]])
+                    node['delta'] = error * self.sigmoidActivationDerivation(node['output'])
+
+
+    # Totally based in node['delta']
     def updateWeights(self, x):
-        pass
+
+        learningRate = 0.5  # This is the amount in which we will update weights
+
+        for i, layer in enumerate(self.network):
+            # Read Input Values
+            # For 1st Layer inputs are x
+            if i == 0:
+                inputs = x
+            # For remaining layers inputs of current layer become outputs of the previous layer
+            else:
+                inputs = [node['output'] for node in self.network[i-1]]
+
+            # Update Wights
+            # newWeight = - learningRate * (error * activationFxn) * input
+
+            for node in layer:
+                for j, input in enumerate(inputs):
+                    node['weights'][j] += -learningRate * node['delta'] * input
+
 
     def summation(self, inputs, weights):
         """
@@ -250,10 +292,9 @@ def main():
     # numberOfClasses -> 3
     # hidden -> [5] -> only 1 hidden layer with 5 nodes
     # hidden -> [5, 5, 4] -> 3 hidden layer with 1st having 5 nodes, 2nd having 5 nodes, 3rd having 4 nodes
-    model = ANN(input=inputFeatures, output=numberOfClasses, hidden=[5])
-    model.printNetwork()
+    # model = ANN(input=inputFeatures, output=numberOfClasses, hidden=[5])
+    # model.printNetwork()
 
-    """
     # We are iterating in index_folds
     # i will range from 0 to 3 as we have 4 folds
     # index_test will have the random array indexes in the fold
@@ -273,6 +314,9 @@ def main():
         X_train, Y_train = X[index_train], Y[index_train]
         X_test, Y_test = X[index_test], Y[index_test]
 
+        print("X_train: ", X_train)
+        print("X_test", X_test)
+
         # CREATING the MODEL
         # inputFeatures   -> 7
         # numberOfClasses -> 3
@@ -286,20 +330,25 @@ def main():
         YPrediction_train = model.predict(X_train)
         YPrediction_test = model.predict(X_test)
 
+        print("YPrediction_train", YPrediction_train)
+        print("YPrediction_test", YPrediction_test)
+
         accuracyTrainingScore = 100 * np.sum(Y_train == YPrediction_train) / len(Y_train)
         accuracyTestingScore = 100 * np.sum(Y_test == YPrediction_test) / len(Y_test)
 
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
         print(">> MODEL ACCURACY TRAINING for ", i, ":", accuracyTrainingScore)
         print(">> MODEL ACCURACY TESTING for ", i, ":", accuracyTestingScore)
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
         accuracyTrainingScores.append(accuracyTrainingScore)
         accuracyTestingScores.append(accuracyTestingScore)
 
-
+    print()
     print("OVERALL MODEL ACCURACY OVER 4 ITERATIONS")
     print(">> MODEL ACCURACY TRAINING:", sum(accuracyTrainingScores) / len(accuracyTrainingScores))
     print(">> MODEL ACCURACY TESTING:", sum(accuracyTestingScores) / len(accuracyTestingScores))
-    """
+
 
 if __name__ == '__main__':
     main()
