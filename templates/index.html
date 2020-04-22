@@ -1,0 +1,21 @@
+<html>
+    <title>LMS</title>
+    <body>
+        <center>
+                <br/>
+                <h3>Welcome to LMS</h3>
+                <h4>Please Login with Details Below:</h4>
+                <!--get -> data becomes the part of url-->
+                <!--post -> data is hidden in http body and hence, more secure-->
+                <form action="login" method="post">
+                    Email: <input type='text' name='txtEmail' placeholder='Enter Your Email'/>
+                    <br/>
+                    Password: <input type='password' name='txtPassword' placeholder='Enter Your Password'/>
+                    <br/>
+                    <input type='submit' value='Login'/>
+                    <br/><br/>
+                    <a href="register">New User? Register Here</a>
+                </form>
+        </center>
+    </body>
+</html>

@@ -1,0 +1,34 @@
+<html>
+    <title>Home</title>
+    <body>
+        <center>
+                <br/>
+                <h3>Welcome to LMS - Home</h3>
+
+                <h4>Please Select DataSet(csv) to Upload</h4>
+                <form action="upload-data-set" method="post" enctype="multipart/form-data">
+                    <input type='file' name='dataset'/>
+                    <input type='submit' value='Upload DataSet'/>
+                </form>
+
+            <br/>
+
+                <h4>Please Select Image to Upload</h4>
+                <form action="upload-image" method="post" enctype="multipart/form-data">
+                    <input type='file' name='image'/>
+                    <input type='submit' value='Upload Image'/>
+                </form>
+
+            <br/>
+
+                <h4>Please Fill the details Below:</h4>
+                <form action="predict-label" method="post">
+                    Feature1: <input type='text' name='feature1' placeholder='Enter Petal Length'/>
+                    <br/>
+                    Feature2: <input type='text' name='feature2' placeholder='Enter Petal Width'/>
+                    <br/>
+                    <input type='submit' value='Predict'/>
+                </form>
+        </center>
+    </body>
+</html>
