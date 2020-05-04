@@ -1,19 +1,28 @@
 <html>
     <title>COVID19 XRAY</title>
+    <style>
+        div {
+            height: 800px;
+            background: linear-gradient(to bottom, #667eea 0%, #764ba2 100%)
+        }
+    </style>
+    <!--<body style="background-color:green">-->
     <body>
-        <center>
-                <br/>
-                <h3>COVID-19 IMAGE CLASSIFICATION</h3>
+        <div>
+            <center>
+                    <br/>
+                    <img src="{{url_for('static', filename='aibg.jpg')}}" style="height:160px;"/>
+                    <br/>
+                    <h3>COVID-19 IMAGE CLASSIFICATION</h3>
 
-            <br/>
+                    <br/>
 
-                <h4>Please Select XRAY Image For CODVID Results</h4>
-                <form action="upload-image" method="post" enctype="multipart/form-data">
-                    <input type='file' name='image'/>
-                    <input type='submit' value='Upload XRAY Image'/>
-                </form>
-
-
-        </center>
+                    <h4>Please Select XRAY Image For CODVID Results</h4>
+                    <form action="upload-image" method="post" enctype="multipart/form-data">
+                        <input type='file' name='image'/>
+                        <input type='submit' value='Upload XRAY Image'/>
+                    </form>
+            </center>
+        </div>
     </body>
 </html>
