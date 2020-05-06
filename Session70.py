@@ -1,6 +1,5 @@
 import tensorflow as tf
 import tensorflow_hub as hub
-from tensorflow.keras import layers
 import matplotlib.pyplot as plt
 import numpy as np
 import PIL.Image as Image
